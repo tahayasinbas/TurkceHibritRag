@@ -1,4 +1,4 @@
-"""Explicit reconstruction defaults, not recovered historical experiment settings."""
+"""Demo defaults based on the manuscript's methodology section."""
 from dataclasses import dataclass
 import os
 

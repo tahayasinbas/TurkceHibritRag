@@ -1,0 +1,4 @@
+Metinlerin parçalara ayrılması
+
+Bu metin GitHub demosu için hazırlanmış bir örnektir; makalenin deney veri kümesinden alınmamıştır.
+PDF dosyalarından çıkarılan metinler, gömme modelinin tokenizer'ı kullanılarak en fazla 2000 token içeren parçalara ayrılır. Ardışık parçalar arasında 200 token örtüşme bırakılır. Böylece parça sınırına yakın bilgiler komşu parçada da bulunabilir. Kısa bir örnek metin tek parça olabilir. Kaynak dosya adı, token başlangıcı ve parça uzunluğu metaveri olarak saklanır.

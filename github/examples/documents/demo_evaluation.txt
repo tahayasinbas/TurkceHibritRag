@@ -1,0 +1,4 @@
+Erişim sonuçlarının değerlendirilmesi
+
+Bu metin GitHub demosu için hazırlanmış bir örnektir; makalenin deney veri kümesinden alınmamıştır.
+Erişim değerlendirmesinde, getirilen parça kimlikleri bağımsız olarak belirlenmiş ilgili parça kimlikleriyle karşılaştırılır. Precision ilk K sonucun isabetini, Recall ilgili parçaların ne kadarının getirildiğini ölçer. MRR ilk ilgili sonucun sıra numarasının tersini kullanır. Bu küçük örnek koleksiyon akademik performans ölçmek için uygun değildir; yalnızca sistemin çalışma akışını göstermek içindir.

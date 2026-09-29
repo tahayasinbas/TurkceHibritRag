@@ -1,4 +1,4 @@
-"""PDF ingestion, hybrid retrieval and independent Gemini requests."""
+"""PDF/text ingestion, hybrid retrieval and independent Gemini requests."""
 from dataclasses import asdict
 from hashlib import sha256
 from pathlib import Path
@@ -27,25 +27,31 @@ def embedding_model(settings):
 
 
 def ingest(directory: str, settings: Settings):
-    import fitz
     from psycopg.types.json import Jsonb
     root = Path(directory).resolve()
-    pdfs = sorted(p for p in root.rglob('*') if p.is_file() and p.suffix.lower() == '.pdf')
-    if not pdfs:
-        raise ValueError(f'No PDFs found in {root}')
+    documents = sorted(p for p in root.rglob('*')
+                       if p.is_file() and p.suffix.lower() in ('.pdf', '.txt'))
+    if not documents:
+        raise ValueError(f'No PDF or UTF-8 text documents found in {root}')
     model = embedding_model(settings)
     total = 0
     with store.connect() as conn:
         store.initialize(conn, settings)
         # One transaction: a failure leaves no partially imported corpus.
-        for path in pdfs:
+        for path in documents:
             source = path.relative_to(root).as_posix()
-            with fitz.open(path) as pdf:
-                text = '\n'.join(page.get_text('text') for page in pdf).replace('\x00', '').strip()
-                metadata = {'source': source, 'title': pdf.metadata.get('title') or path.stem,
-                            'author': pdf.metadata.get('author') or '', 'page_count': len(pdf)}
+            if path.suffix.lower() == '.pdf':
+                import fitz
+                with fitz.open(path) as pdf:
+                    text = '\n'.join(page.get_text('text') for page in pdf)
+                    metadata = {'source': source, 'title': pdf.metadata.get('title') or path.stem,
+                                'author': pdf.metadata.get('author') or '', 'page_count': len(pdf)}
+            else:
+                text = path.read_text(encoding='utf-8')
+                metadata = {'source': source, 'title': path.stem, 'format': 'text'}
+            text = text.replace('\x00', '').strip()
             if not text:
-                raise ValueError(f'No extractable text in {source}; OCR may be required.')
+                raise ValueError(f'No text in {source}; scanned PDFs may require OCR.')
             ids = model.tokenizer.encode(text, add_special_tokens=False, truncation=False)
             chunks = []
             for start, window in token_windows(ids, settings.chunk_size, settings.chunk_overlap):

@@ -1,19 +1,17 @@
-# Türkçe Hibrit RAG
+# Türkçe Hibrit RAG Demo
 
-BM25, BAAI/bge-m3, PostgreSQL/pgvector ve Gemini kullanan yeniden oluşturulmuş
-referans uygulama [`github/`](github/) dizinindedir.
+**A Hybrid BM25–Dense Retrieval Augmented Generation Framework for Reliable Turkish NLP**
+çalışmasındaki BM25 + yoğun arama yaklaşımını gösteren küçük bir demo.
 
-Kurulum, yöntem, kullanım ve deney sınırlılıkları için
-[uygulama README'sini](github/README.md) okuyun. Komutları `github/` dizininde
-çalıştırın:
+Kod ve çalıştırma adımları [`github/`](github/README.md) dizinindedir. Demo;
+BAAI/bge-m3, PostgreSQL/pgvector ve isteğe bağlı Gemini yanıt üretimini kullanır.
+Altı kısa Türkçe örnek metinle başlayabilir veya kendi PDF’lerinizi yükleyebilirsiniz.
 
 ```bash
 cd github
-python -m turkish_rag --help
+# README'deki ortam ve veritabanı kurulumundan sonra:
+python -m turkish_rag demo
 ```
 
-Bu sürüm, kayıp özgün deney kodunun birebir arşivi değildir; makaledeki sonuçların
-bu kodla yeniden üretildiği iddia edilmemektedir.
-
-Kök `.gitignore`, kaynak paketi dışındaki eski prototipleri, veri dosyalarını,
-veritabanı yedeklerini ve yayın belgelerini Git kapsamı dışında tutar.
+Bu depo yöntemin örnek uygulamasıdır; makalenin veri kümesini ve bütün deneylerini
+kapsamaz, yayımlanan başarı skorlarını yeniden üretme iddiası taşımaz.

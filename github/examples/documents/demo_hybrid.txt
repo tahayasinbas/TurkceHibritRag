@@ -1,0 +1,4 @@
+BM25 ve yoğun aramanın birlikte kullanılması
+
+Bu metin GitHub demosu için hazırlanmış bir örnektir; makalenin deney veri kümesinden alınmamıştır.
+Hibrit erişim, BM25'in sözcük eşleştirmesini yoğun vektör aramasının anlamsal benzerliğiyle birleştirir. Böylece hem teknik terimlerin eşleşmesi hem de farklı sözcüklerle ifade edilen anlamlar dikkate alınır. İki kanalın ilk beşer adayının birleşimi alınır. Birleşik skor, kosinüs benzerliğinin yüzde 60'ı ile min–max normalize edilmiş BM25 skorunun yüzde 40'ının toplamıdır. En yüksek skorlu beş metin parçası yanıt modeline bağlam olarak verilir.

@@ -1,0 +1,4 @@
+Kaynak bağlamına dayalı yanıt üretimi
+
+Bu metin GitHub demosu için hazırlanmış bir örnektir; makalenin deney veri kümesinden alınmamıştır.
+RAG akışında önce ilgili metinler getirilir, ardından kullanıcı sorusu ve bu metinler dil modeline sunulur. Bu demoda Gemini modelinden yalnızca verilen kaynakları kullanması, iddialar için kaynak numarası belirtmesi ve bilgi bulunmadığında bunu söylemesi istenir. Üretim sıcaklığı 0,4'tür. Bu ayar yanıtların her çalıştırmada aynı olacağını garanti etmez. Arama adımı Gemini çağrısı yapılmadan da incelenebilir.

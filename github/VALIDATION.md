@@ -1,15 +1,12 @@
-# Doğrulama kaydı
+# Demo doğrulama kaydı
 
 Kontrol tarihi: 29 Eylül 2026.
 
-Bu ortamda tamamlanan kontroller:
+- 16 birim testi başarılı: hibrit skor, token pencereleri, Türkçe harf dönüşümü, erişim metrikleri ve demo komutunun yönlendirmesi.
+- Demo komutu testlerinde model/veritabanı nesneleri taklit edilmiştir. Varsayılan akışın yanıt üretimini çağırmadığı ve `--generate` seçeneğinin seçilen modeli kullandığı denetlenmiştir.
+- Python sözdizimi kontrolü ve `demo --help` / `ingest --help` kontrolleri başarılıdır.
+- Test ortamı Python 3.14'tür. Model bağımlılıklarının kurulumu için README'de Python 3.11/3.12 önerilmektedir.
 
-- `python -m unittest discover -s tests -v`: 14 test başarılı.
-- `python -m compileall -q turkish_rag tests`: başarılı.
-- `python -m turkish_rag --help`: komut satırı arayüzü açılıyor.
-- `python -m turkish_rag evaluate --input examples/retrieval_labels.jsonl --k 5`: iki yapay örnekte beklenen erişim metrikleri üretiliyor.
-- Kaynak paketinde eski sabit veritabanı parolası, gerçek API anahtarı, tablo silme komutu ve makaledeki sonuçları döndüren sabit skorlar bulunmuyor.
+Bu ortamda PostgreSQL başlatılmadı, bge-m3 indirilmedi ve Gemini API çağrısı yapılmadı. PDF/metin indeksleme ile uçtan uca çalıştırma henüz doğrulanmış değildir. Test sonuçları makaledeki deneylerin veya başarı skorlarının doğrulandığı anlamına gelmez.
 
-Testler yerel Python 3.14 ile çalıştırıldı. Ağır model bağımlılıklarının kurulumu için README’de Python 3.11/3.12 önerilmiştir; bu sürümlerde tam bağımlılık kurulumu burada denenmedi.
-
-Bu ortamda PostgreSQL hizmeti başlatılmadı, bge-m3 modeli indirilmedi, gerçek PDF külliyatı yeniden indekslenmedi ve ücretli Gemini çağrısı yapılmadı. Bu nedenle uçtan uca çalışma ve tarihsel deney sonuçlarının yeniden üretimi doğrulanmış değildir. Birim testlerinin başarılı olması bu entegrasyonların veya bilimsel sonuçların doğrulandığı anlamına gelmez.
+`examples/documents/` altındaki metinler ve diğer örnek girdiler yalnızca demoyu göstermek amacıyla hazırlanmıştır.

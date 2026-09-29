@@ -1,0 +1,4 @@
+Yoğun vektör araması
+
+Bu metin GitHub demosu için hazırlanmış bir örnektir; makalenin deney veri kümesinden alınmamıştır.
+Yoğun arama, sorguyu ve metinleri sayısal vektörlere dönüştürerek anlamsal benzerliklerini karşılaştırır. Bu demoda BAAI/bge-m3 ile 1024 boyutlu vektörler oluşturulur. Vektörler PostgreSQL üzerinde pgvector ile saklanır. Sorgu ve belge arasındaki yakınlık kosinüs benzerliğiyle hesaplanır. HNSW indeksi, büyük koleksiyonlarda benzer adaylara erişmek için kullanılır.

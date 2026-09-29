@@ -1,0 +1,4 @@
+BM25 ile anahtar kelime araması
+
+Bu metin GitHub demosu için hazırlanmış bir örnektir; makalenin deney veri kümesinden alınmamıştır.
+BM25, sorgu sözcüklerinin belgelerdeki sıklığını ve belge uzunluğunu dikkate alan bir erişim yöntemidir. Teknik terimler ve kısaltmalar aynı biçimde geçtiğinde ilgili metinleri bulmaya yardımcı olur. Farklı sözcüklerle ifade edilen aynı anlamı yakalamak için yoğun vektör aramasıyla birlikte kullanılabilir. Demoda k1 değeri 1,5 ve b değeri 0,75 olarak ayarlanmıştır.

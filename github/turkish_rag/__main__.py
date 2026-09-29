@@ -26,10 +26,14 @@ def evaluate(rows, k):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Reconstructed Turkish hybrid RAG reference implementation')
+    parser = argparse.ArgumentParser(description='Turkish hybrid RAG demo: BM25 + bge-m3 + Gemini')
     sub = parser.add_subparsers(dest='command', required=True)
-    ingest_parser = sub.add_parser('ingest', help='Index PDFs in an isolated reference schema')
-    ingest_parser.add_argument('--pdf-dir', required=True)
+    demo = sub.add_parser('demo', help='Index the included example texts and show hybrid search')
+    demo.add_argument('question', nargs='?', default='BM25 ile yoğun vektör araması neden birlikte kullanılır?')
+    demo.add_argument('--generate', action='store_true', help='Also request an answer from Gemini (paid API)')
+    demo.add_argument('--model', default='gemini-2.5-pro')
+    ingest_parser = sub.add_parser('ingest', help='Index PDFs or UTF-8 text files')
+    ingest_parser.add_argument('--docs-dir', '--pdf-dir', dest='docs_dir', required=True)
     ask = sub.add_parser('ask', help='Answer a single question')
     ask.add_argument('question')
     ask.add_argument('--model', required=True, help='Available Gemini model identifier')
@@ -45,7 +49,7 @@ def main():
     metric = sub.add_parser('evaluate', help='Offline retrieval metrics from labelled chunk IDs')
     metric.add_argument('--input', required=True)
     metric.add_argument('--k', type=int, default=5)
-    sub.add_parser('config', help='Print reconstruction defaults without external dependencies')
+    sub.add_parser('config', help='Print demo defaults without external dependencies')
     args = parser.parse_args()
     from .config import Settings
     if args.command == 'config':
@@ -56,8 +60,18 @@ def main():
         return
     from .pipeline import RAG, ingest
     from . import store
+    if args.command == 'demo':
+        examples = Path(__file__).resolve().parent.parent / 'examples' / 'documents'
+        print('DEMO: Included texts are illustrative, not the article dataset.', file=sys.stderr)
+        ingest(str(examples), Settings())
+        with store.connect() as conn:
+            rag = RAG(conn)
+            result = (rag.answer(args.question, args.model) if args.generate
+                      else {'question': args.question, 'sources': rag.retrieve(args.question)})
+            print(json.dumps({'demo': True, **result}, ensure_ascii=False, indent=2))
+        return
     if args.command == 'ingest':
-        ingest(args.pdf_dir, Settings())
+        ingest(args.docs_dir, Settings())
         return
     if args.command == 'batch':
         rows = read_jsonl(args.input)

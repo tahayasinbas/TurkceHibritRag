@@ -1,1 +1,1 @@
-"""Reconstructed reference implementation of the Turkish hybrid RAG method."""
+"""Small demonstration of Turkish BM25 + dense retrieval augmented generation."""
