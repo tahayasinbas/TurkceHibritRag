@@ -1,0 +1,34 @@
+# Yalnizca yayinlanacak kaynak paketi ve kok aciklamasi Git'e dahil edilir.
+# Diger kok dosyalari/dizinleri yerelde kalir (veri, yedek, eski kod, belge, ZIP).
+/*
+!/.gitignore
+!/README.md
+!/github/
+
+# Kaynak paketinin icinde de yerel ayarlar ve uretilen dosyalari disla.
+**/.env
+**/.env.*
+!**/.env.example
+**/.venv/
+**/venv/
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.idea/
+**/.vscode/
+**/.ipynb_checkpoints/
+**/pg_data/
+**/data/
+**/models/
+**/outputs/
+**/*.sql
+**/*.pdf
+**/*.docx
+**/*.xlsx
+**/*.csv
+**/*.ipynb
+**/*.zip
+**/*.log
+**/.DS_Store
